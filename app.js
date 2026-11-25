@@ -55,28 +55,56 @@
     return span;
   }
 
-  function cell(className, label, text) {
-    var td = el("td", className, text);
-    td.setAttribute("data-label", label);
-    return td;
+  function artFor(offer) {
+    var text = (offer.brand + " " + offer.offer + " " + offer.retailer).toLowerCase();
+    if (/mall|phoenix|orion|ub city|bhartiya/.test(text)) return "images/mall.jpg";
+    if (/nykaa/.test(text)) return "images/beauty.jpg";
+    if (/tv|qled|oled|bravia|qned/.test(text)) return "images/tv.jpg";
+    if (/headphone|rockerz|marshall|wh-|ult wear|boat/.test(text)) return "images/audio.jpg";
+    if (/macbook|laptop|victus|loq|vivobook|omnibook|ideapad|thinkpad|legion|yoga|dell |asus |hp /.test(text)) return "images/laptop.jpg";
+    if (/iphone|galaxy|pixel|oneplus|xiaomi|redmi|nothing|phone|tab /.test(text)) return "images/phone.jpg";
+    if (/nike|puma|adidas|skechers|birkenstock|footwear|sneaker|campus/.test(text)) return "images/sneakers.jpg";
+    if (offer.cat === "Electronics") return "images/phone.jpg";
+    return "images/fashion.jpg";
   }
 
-  function renderRow(offer) {
-    var tr = document.createElement("tr");
-    tr.className = "offer-row";
-    tr.appendChild(cell("brand", "Brand", offer.brand));
-    tr.appendChild(cell("retailer", "Retailer", offer.retailer));
-    tr.appendChild(cell("offer", "Offer", offer.offer));
-    tr.appendChild(cell("price", "Price", offer.price));
-    tr.appendChild(cell("bank", "Bank offer", offer.bank));
-    tr.appendChild(cell("valid", "Valid", offer.valid));
-    var status = cell("status", "Status", null);
-    status.appendChild(el("span", "pill pill-" + offer.status.toLowerCase(), offer.status));
-    tr.appendChild(status);
-    var source = cell("source", "Source", null);
-    source.appendChild(sourceLinks(offer.src));
-    tr.appendChild(source);
-    return tr;
+  function renderAd(offer) {
+    var primary = SOURCES[offer.src[0]];
+    var article = el("article", "ad");
+    var shot = document.createElement("a");
+    shot.className = "ad-shot";
+    shot.href = primary.u;
+    shot.target = "_blank";
+    shot.rel = "noopener noreferrer";
+    var img = document.createElement("img");
+    img.src = artFor(offer);
+    img.alt = "";
+    shot.appendChild(img);
+    var flags = el("span", "ad-flags");
+    flags.appendChild(el("span", "pill pill-" + offer.status.toLowerCase(), offer.status));
+    flags.appendChild(el("span", "ad-cat", offer.cat));
+    shot.appendChild(flags);
+    shot.appendChild(el("span", "ad-retailer", offer.retailer));
+    article.appendChild(shot);
+
+    var body = el("div", "ad-body");
+    body.appendChild(el("h3", null, offer.brand));
+    body.appendChild(el("p", "ad-price", offer.price));
+    body.appendChild(el("p", "ad-offer", offer.offer));
+    body.appendChild(el("p", "ad-bank", offer.bank));
+    body.appendChild(el("p", "ad-valid", offer.valid));
+    var links = el("div", "ad-links");
+    links.appendChild(sourceLinks(offer.src));
+    body.appendChild(links);
+    var cta = document.createElement("a");
+    cta.className = "ad-cta";
+    cta.href = primary.u;
+    cta.target = "_blank";
+    cta.rel = "noopener noreferrer";
+    cta.textContent = "See it on " + primary.l;
+    body.appendChild(cta);
+    article.appendChild(body);
+    return article;
   }
 
   function readState() {
@@ -104,14 +132,14 @@
     var rows = filterOffers(OFFERS, state);
     ["Electronics", "Fashion"].forEach(function (cat) {
       var section = document.getElementById(cat.toLowerCase());
-      var tbody = section.querySelector("tbody");
+      var grid = section.querySelector(".ad-grid");
       var empty = section.querySelector(".empty");
       var subset = rows.filter(function (offer) { return offer.cat === cat; });
       var visible = state.cat === "All" || state.cat === cat;
       section.hidden = !visible;
-      tbody.replaceChildren();
+      grid.replaceChildren();
       if (!visible) return;
-      subset.forEach(function (offer) { tbody.appendChild(renderRow(offer)); });
+      subset.forEach(function (offer) { grid.appendChild(renderAd(offer)); });
       empty.hidden = subset.length !== 0;
       section.querySelector(".cat-count").textContent = String(subset.length);
     });
