@@ -29,6 +29,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html styles.css app.js data.js favicon.svg og.png _site/
+          cp -r images _site/images
           touch _site/.nojekyll
 
       - name: Upload Pages artifact
