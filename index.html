@@ -31,155 +31,65 @@
   <a class="skip" href="#offers">Skip to offers</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="#top">Black Friday 2026</a>
-      <nav class="site-nav" aria-label="Page">
-        <a href="#top-picks">Top picks</a>
-        <a href="#electronics" data-jump-cat="Electronics">Electronics</a>
-        <a href="#fashion" data-jump-cat="Fashion">Fashion</a>
-        <a href="#department-stores">H&amp;M &amp; stores</a>
-        <a href="#bank-offers">Bank offers</a>
-        <a href="#bangalore">Bangalore</a>
-        <a href="#gaps">Caveats</a>
-        <a href="#sources">Sources</a>
-      </nav>
+      <a class="brand" href="#top">Black Friday</a>
+      <p class="updated"><time datetime="2026-11-25">Last updated: 25 Nov 2026</time></p>
     </div>
   </header>
-
+  <nav class="tabs" aria-label="Sections">
+    <button type="button" data-panel="offers" aria-pressed="true">Offers</button>
+    <button type="button" data-panel="stores" aria-pressed="false">Stores</button>
+    <button type="button" data-panel="notes" aria-pressed="false">Notes</button>
+  </nav>
   <main id="top">
-    <section class="hero">
-      <div class="wrap">
-        <p class="eyebrow">India &amp; Bangalore · Clothing and electronics</p>
-        <h1>Black Friday 2026 Offers — India &amp; Bangalore</h1>
-        <p class="updated"><time datetime="2026-11-25">Last updated: 25 Nov 2026</time></p>
-        <p class="lede">Electronics and fashion offers on leading brands, plus a second pass on H&amp;M, Westside, Lifestyle and similar high-street chains, collected on 25 Nov 2026 (IST). Black Friday is Fri 27 Nov; Flipkart's sale ends that day, Croma and most others run to 30 Nov.</p>
-        <ul class="stats">
-          <li><strong id="stat-total">67</strong> <span>offers</span></li>
-          <li><strong id="stat-electronics">35</strong> <span>electronics</span></li>
-          <li><strong id="stat-fashion">32</strong> <span>fashion</span></li>
-          <li><strong id="stat-live">44</strong> <span>marked live</span></li>
-        </ul>
-        <p class="disclaimer">Prices change. Verify every offer on the retailer site before you buy.</p>
-      </div>
-    </section>
-
-    <div class="wrap">
-      <aside class="callout" id="how-to-read">
-        <h2>How to read this</h2>
-        <p>Every row cites the page it came from. Live means a retailer or brand page, or a dated news report, shows the offer now. Upcoming means a start date is reported but the sale has not opened. Unconfirmed means only trackers or past years point to it, or an official page exists but states no terms. Percent-off figures are against each store's stated MRP, which can overstate the real saving, so compare the rupee price.</p>
-      </aside>
-
-      <section id="top-picks">
-        <div class="section-head">
-          <h2>Top picks</h2>
-        </div>
-        <ol class="picks">
-          <li style="background-image:url('images/phone.jpg')">
-            <h3>Samsung Galaxy S25 5G at ₹70,999 on Flipkart</h3>
-            <p>Was ₹1,04,999; Flipkart Axis card takes off another ₹3,550. Flipkart's sale ends 27 Nov.</p>
-            <p class="meta">Flipkart</p>
-          </li>
-          <li style="background-image:url('images/tv.jpg')">
-            <h3>TCL 65-inch QLED TV at ₹61,990, ₹42,740 with the best bank offer</h3>
-            <p>Earlier price ₹1,14,990; the ₹42,740 needs the highest applicable Flipkart bank offer.</p>
-            <p class="meta">Flipkart</p>
-          </li>
-          <li style="background-image:url('images/phone.jpg')">
-            <h3>Apple iPhone 17 (256GB) at ₹89,100, ₹85,100 with Axis or SBI card</h3>
-            <p>Was ₹99,900; exchange up to ₹53,750.</p>
-            <p class="meta">Flipkart</p>
-          </li>
-          <li style="background-image:url('images/audio.jpg')">
-            <h3>boAt Rockerz 650 Pro at ₹2,399 and boAt Rockerz 430 at ₹1,499</h3>
-            <p>Croma lists 73% off a stated ₹8,990 MRP; Reliance Digital lists the 430 at 50% off ₹2,999.</p>
-            <p class="meta">Croma, Reliance Digital</p>
-          </li>
-          <li style="background-image:url('images/fashion.jpg')">
-            <h3>Levi's 511 Slim jeans at ₹1,923 and adidas Supernova Rise 3 at ₹7,499.50</h3>
-            <p>Brand-site prices; PUMA adds an extra 30% off sitewide from 27 Nov (early access 26 Nov).</p>
-            <p class="meta">levi.in, adidas.co.in, PUMA</p>
-          </li>
-          <li style="background-image:url('images/sneakers.jpg')">
-            <h3>Tata CLiQ Fashion at 50–85% off with 12.5% instant discount on Amex, Axis and Kotak cards</h3>
-            <p>Covers Levi's, U.S. Polo, Nike, PUMA, adidas Originals and more; 19–30 Nov.</p>
-            <p class="meta">Tata CLiQ</p>
-          </li>
-        </ol>
-      </section>
-
-      <section id="offers">
-        <div class="section-head">
-          <h2>All offers</h2>
-          <p>Electronics and fashion are listed separately below. Filters apply to both. Upcoming and Unconfirmed rows are included on purpose. The photos are scene images, not pictures of the listed products.</p>
-        </div>
-
+    <section id="panel-offers" class="panel">
+      <div class="feed-col">
         <form class="filters" id="filters">
-          <div class="filter-row">
-            <fieldset>
-              <legend>Category</legend>
-              <div class="segmented" data-filter="cat" role="group" aria-label="Category">
-                <button type="button" data-value="All" aria-pressed="true">All</button>
-                <button type="button" data-value="Electronics" aria-pressed="false">Electronics</button>
-                <button type="button" data-value="Fashion" aria-pressed="false">Fashion</button>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Status</legend>
-              <div class="segmented" data-filter="status" role="group" aria-label="Status">
-                <button type="button" data-value="All" aria-pressed="true">All</button>
-                <button type="button" data-value="Live" aria-pressed="false">Live</button>
-                <button type="button" data-value="Upcoming" aria-pressed="false">Upcoming</button>
-                <button type="button" data-value="Unconfirmed" aria-pressed="false">Unconfirmed</button>
-              </div>
-            </fieldset>
+          <div class="chip-row" data-filter="cat" role="group" aria-label="Category">
+            <button type="button" data-value="All" aria-pressed="true">All</button>
+            <button type="button" data-value="Electronics" aria-pressed="false">Electronics</button>
+            <button type="button" data-value="Fashion" aria-pressed="false">Fashion</button>
           </div>
-          <div class="filter-row filter-controls">
-            <label class="field grow">
-              <span>Search brand, retailer or offer</span>
-              <input id="search" type="search" placeholder="e.g. H&amp;M, Westside, Lifestyle, HDFC" autocomplete="off">
-            </label>
-            <label class="field">
-              <span>Retailer</span>
-              <select id="retailer">
-                <option value="All">All</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>Sort by</span>
-              <select id="sort">
-                <option value="brand">Brand A–Z</option>
-                <option value="retailer">Retailer A–Z</option>
-                <option value="status">Status (Live first)</option>
-              </select>
-            </label>
-            <label class="toggle">
-              <input id="store-only" type="checkbox">
-              <span>In-store / Bangalore only</span>
-            </label>
-            <button type="button" class="text-btn" id="clear-filters">Clear</button>
-          </div>
-          <p class="count" id="count" aria-live="polite">67 of 67 offers shown.</p>
+          <details class="more-filters">
+            <summary>Status, search, retailer, sort</summary>
+            <div class="chip-row" data-filter="status" role="group" aria-label="Status">
+              <button type="button" data-value="All" aria-pressed="true">Any status</button>
+              <button type="button" data-value="Live" aria-pressed="false">Live</button>
+              <button type="button" data-value="Upcoming" aria-pressed="false">Upcoming</button>
+              <button type="button" data-value="Unconfirmed" aria-pressed="false">Unconfirmed</button>
+            </div>
+            <div class="filter-row">
+              <label class="field grow">
+                <span>Search brand, retailer or offer</span>
+                <input id="search" type="search" placeholder="e.g. H&amp;M, Westside, Lifestyle, HDFC" autocomplete="off">
+              </label>
+              <label class="field">
+                <span>Retailer</span>
+                <select id="retailer"><option value="All">All</option></select>
+              </label>
+              <label class="field">
+                <span>Sort by</span>
+                <select id="sort">
+                  <option value="brand">Brand A–Z</option>
+                  <option value="retailer">Retailer A–Z</option>
+                  <option value="status">Status (Live first)</option>
+                </select>
+              </label>
+              <label class="toggle">
+                <input id="store-only" type="checkbox">
+                <span>In-store / Bangalore only</span>
+              </label>
+              <button type="button" class="text-btn" id="clear-filters">Clear</button>
+            </div>
+          </details>
+          <p class="count" id="count" aria-live="polite">67 of 67</p>
         </form>
         <p class="loading" id="loading">Loading offers…</p>
-
-        <section id="electronics">
-          <div class="cat-head">
-            <h2>Electronics</h2>
-            <p><span class="cat-count">35</span> in this view</p>
-          </div>
-          <div class="ad-grid"></div>
-          <p class="empty" hidden>No electronics offers match these filters.</p>
-        </section>
-
-        <section id="fashion">
-          <div class="cat-head">
-            <h2>Fashion</h2>
-            <p><span class="cat-count">32</span> in this view</p>
-          </div>
-          <div class="ad-grid"></div>
-          <p class="empty" hidden>No fashion offers match these filters.</p>
-        </section>
-      </section>
-
+        <div id="feed" class="ad-grid"></div>
+        <p class="empty" id="feed-empty" hidden>No offers match these filters.</p>
+      </div>
+    </section>
+    <section id="panel-stores" class="panel" hidden>
+      <div class="wrap">
       <section id="department-stores">
         <div class="section-head">
           <h2>H&amp;M, Westside, Lifestyle and department stores</h2>
@@ -225,6 +135,53 @@
         </div>
       </section>
 
+      <section id="bangalore">
+        <div class="section-head">
+          <h2>Bangalore in-store</h2>
+        </div>
+        <div class="stack">
+          <article class="story">
+            <div class="story-top">
+              <h3>Bhartiya Mall of Bengaluru Black Friday Sale</h3>
+              <span class="pill pill-upcoming">Upcoming</span>
+            </div>
+            <p>Up to 80% off select products across fashion, beauty, footwear, accessories, home and electronics; retailers include Lifestyle, Max, Pantaloons, Home Centre and Reliance Trends.</p>
+            <p class="meta">27–29 Nov</p>
+          </article>
+          <article class="story">
+            <div class="story-top">
+              <h3>H&amp;M Bangalore stores</h3>
+              <span class="pill pill-upcoming">Upcoming</span>
+            </div>
+            <p>H&amp;M's store locator lists Bangalore stores at Mantri Square, Brigade Orion Gateway Mall, 1 MG Mall, Mall of Asia and Vega City. The official Black Friday page marks 27 Nov and does not say whether store offers will match the site.</p>
+            <p class="meta">27 Nov marked</p>
+          </article>
+          <article class="story">
+            <div class="story-top">
+              <h3>Phoenix Marketcity, Orion Mall, UB City</h3>
+              <span class="pill pill-unconfirmed">Unconfirmed</span>
+            </div>
+            <p>No 2026 Black Friday event found. Phoenix's page is from 2025; Orion reported 15% higher footfall at its 2025 sale. Check each mall's channels before going.</p>
+            <p class="meta">Not confirmed</p>
+          </article>
+          <article class="story">
+            <h3>Brand and department stores</h3>
+            <p>Lifestyle and Marks &amp; Spencer list in-store as well as online offers. Westside, Shoppers Stop, Max, Pantaloons, Trends and Zudio all have Bangalore stores, but no city-specific 2026 Black Friday flyer was found beyond the Bhartiya Mall event. Confirm stock and the BLACKFRI or markdown terms at your nearest outlet.</p>
+            <p class="meta">Varies</p>
+          </article>
+        </div>
+      </section>
+
+      </div>
+    </section>
+    <section id="panel-notes" class="panel" hidden>
+      <div class="wrap">
+      <p class="lede">Electronics and fashion offers on leading brands, plus a second pass on H&amp;M, Westside, Lifestyle and similar high-street chains, collected on 25 Nov 2026 (IST). Black Friday is Fri 27 Nov; Flipkart's sale ends that day, Croma and most others run to 30 Nov.</p>
+      <aside class="callout" id="how-to-read">
+        <h2>How to read this</h2>
+        <p>Every row cites the page it came from. Live means a retailer or brand page, or a dated news report, shows the offer now. Upcoming means a start date is reported but the sale has not opened. Unconfirmed means only trackers or past years point to it, or an official page exists but states no terms. Percent-off figures are against each store's stated MRP, which can overstate the real saving, so compare the rupee price.</p>
+        <p>Photos on the offer cards are scenes, not pictures of the listed products. Prices change. Verify every offer on the retailer site before you buy.</p>
+      </aside>
       <section id="bank-offers">
         <div class="section-head">
           <h2>Bank offers</h2>
@@ -330,43 +287,6 @@
         <p class="note">Check card eligibility, minimum spend and caps on each retailer's terms page, and note that most offers cannot be combined with other bank offers on the same bill.</p>
       </section>
 
-      <section id="bangalore">
-        <div class="section-head">
-          <h2>Bangalore in-store</h2>
-        </div>
-        <div class="stack">
-          <article class="story">
-            <div class="story-top">
-              <h3>Bhartiya Mall of Bengaluru Black Friday Sale</h3>
-              <span class="pill pill-upcoming">Upcoming</span>
-            </div>
-            <p>Up to 80% off select products across fashion, beauty, footwear, accessories, home and electronics; retailers include Lifestyle, Max, Pantaloons, Home Centre and Reliance Trends.</p>
-            <p class="meta">27–29 Nov</p>
-          </article>
-          <article class="story">
-            <div class="story-top">
-              <h3>H&amp;M Bangalore stores</h3>
-              <span class="pill pill-upcoming">Upcoming</span>
-            </div>
-            <p>H&amp;M's store locator lists Bangalore stores at Mantri Square, Brigade Orion Gateway Mall, 1 MG Mall, Mall of Asia and Vega City. The official Black Friday page marks 27 Nov and does not say whether store offers will match the site.</p>
-            <p class="meta">27 Nov marked</p>
-          </article>
-          <article class="story">
-            <div class="story-top">
-              <h3>Phoenix Marketcity, Orion Mall, UB City</h3>
-              <span class="pill pill-unconfirmed">Unconfirmed</span>
-            </div>
-            <p>No 2026 Black Friday event found. Phoenix's page is from 2025; Orion reported 15% higher footfall at its 2025 sale. Check each mall's channels before going.</p>
-            <p class="meta">Not confirmed</p>
-          </article>
-          <article class="story">
-            <h3>Brand and department stores</h3>
-            <p>Lifestyle and Marks &amp; Spencer list in-store as well as online offers. Westside, Shoppers Stop, Max, Pantaloons, Trends and Zudio all have Bangalore stores, but no city-specific 2026 Black Friday flyer was found beyond the Bhartiya Mall event. Confirm stock and the BLACKFRI or markdown terms at your nearest outlet.</p>
-            <p class="meta">Varies</p>
-          </article>
-        </div>
-      </section>
-
       <section id="gaps">
         <div class="section-head">
           <h2>Gaps and caveats</h2>
@@ -410,7 +330,8 @@
         </div>
         <div class="link-grid" id="sources-grid"></div>
       </section>
-    </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
