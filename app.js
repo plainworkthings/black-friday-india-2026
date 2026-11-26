@@ -68,34 +68,58 @@
     return "images/fashion.jpg";
   }
 
-  function renderAd(offer) {
+  var TOPS = [
+    { id: "s25", image: "images/phone.jpg", title: "Samsung Galaxy S25 5G at ₹70,999 on Flipkart", detail: "Was ₹1,04,999; Flipkart Axis card takes off another ₹3,550. Flipkart's sale ends 27 Nov.", test: function (o) { return o.brand.indexOf("Samsung Galaxy S25 5G") === 0 && o.retailer === "Flipkart"; } },
+    { id: "tcl", image: "images/tv.jpg", title: "TCL 65-inch QLED TV at ₹61,990, ₹42,740 with the best bank offer", detail: "Earlier price ₹1,14,990; the ₹42,740 needs the highest applicable Flipkart bank offer.", test: function (o) { return o.brand.indexOf("TCL 65") === 0; } },
+    { id: "iphone", image: "images/phone.jpg", title: "Apple iPhone 17 (256GB) at ₹89,100, ₹85,100 with Axis or SBI card", detail: "Was ₹99,900; exchange up to ₹53,750.", test: function (o) { return o.brand === "Apple iPhone 17 (256GB)"; } },
+    { id: "boat", image: "images/audio.jpg", title: "boAt Rockerz 650 Pro at ₹2,399 and boAt Rockerz 430 at ₹1,499", detail: "Croma lists 73% off a stated ₹8,990 MRP; Reliance Digital lists the 430 at 50% off ₹2,999.", test: function (o) { return o.brand.indexOf("boAt Rockerz 650 Pro") === 0; } },
+    { id: "levis", image: "images/fashion.jpg", title: "Levi's 511 Slim jeans at ₹1,923 and adidas Supernova Rise 3 at ₹7,499.50", detail: "Brand-site prices; PUMA adds an extra 30% off sitewide from 27 Nov (early access 26 Nov).", test: function (o) { return o.brand === "Levi's"; } },
+    { id: "cliq", image: "images/sneakers.jpg", title: "Tata CLiQ Fashion at 50–85% off with 12.5% instant discount on Amex, Axis and Kotak cards", detail: "Covers Levi's, U.S. Polo, Nike, PUMA, adidas Originals and more; 19–30 Nov.", test: function (o) { return o.brand.indexOf("Sale-wide") === 0; } }
+  ];
+
+  function topFor(offer) {
+    for (var i = 0; i < TOPS.length; i++) if (TOPS[i].test(offer)) return TOPS[i];
+    return null;
+  }
+
+  function renderAd(offer, index) {
     var primary = SOURCES[offer.src[0]];
-    var article = el("article", "ad");
-    var shot = document.createElement("a");
-    shot.className = "ad-shot";
-    shot.href = primary.u;
-    shot.target = "_blank";
-    shot.rel = "noopener noreferrer";
+    var top = topFor(offer);
+    var article = el("article", "ad" + (top ? " is-top" : ""));
+    article.id = "offer-" + index;
+    var shot = el("div", "ad-shot");
     var img = document.createElement("img");
     img.src = artFor(offer);
     img.alt = "";
+    img.style.objectPosition = ["center 20%", "center 50%", "center 80%"][index % 3];
     shot.appendChild(img);
     var flags = el("span", "ad-flags");
     flags.appendChild(el("span", "pill pill-" + offer.status.toLowerCase(), offer.status));
-    flags.appendChild(el("span", "ad-cat", offer.cat));
+    if (top) flags.appendChild(el("span", "top-flag", "Top"));
     shot.appendChild(flags);
-    shot.appendChild(el("span", "ad-retailer", offer.retailer));
     article.appendChild(shot);
 
     var body = el("div", "ad-body");
+    body.appendChild(el("p", "ad-retailer", offer.retailer));
     body.appendChild(el("h3", null, offer.brand));
-    body.appendChild(el("p", "ad-price", offer.price));
+    if (offer.price && offer.price !== "—") body.appendChild(el("p", "ad-price", offer.price));
     body.appendChild(el("p", "ad-offer", offer.offer));
-    body.appendChild(el("p", "ad-bank", offer.bank));
+
+    var more = document.createElement("details");
+    more.className = "ad-more";
+    var summary = document.createElement("summary");
+    summary.textContent = "Bank offer and sources";
+    more.appendChild(summary);
+    if (top) more.appendChild(el("p", "ad-top", top.detail));
+    if (!offer.price || offer.price === "—") more.appendChild(el("p", null, "Price: " + offer.price));
     body.appendChild(el("p", "ad-valid", offer.valid));
+    more.appendChild(el("p", null, "Bank offer: " + offer.bank));
     var links = el("div", "ad-links");
     links.appendChild(sourceLinks(offer.src));
-    body.appendChild(links);
+    more.appendChild(links);
+    more.addEventListener("toggle", function () { article.classList.toggle("is-open", more.open); });
+    body.appendChild(more);
+
     var cta = document.createElement("a");
     cta.className = "ad-cta";
     cta.href = primary.u;
@@ -129,31 +153,43 @@
 
   function render() {
     var state = readState();
-    var rows = filterOffers(OFFERS, state);
-    ["Electronics", "Fashion"].forEach(function (cat) {
-      var section = document.getElementById(cat.toLowerCase());
-      var grid = section.querySelector(".ad-grid");
-      var empty = section.querySelector(".empty");
-      var subset = rows.filter(function (offer) { return offer.cat === cat; });
-      var visible = state.cat === "All" || state.cat === cat;
-      section.hidden = !visible;
-      grid.replaceChildren();
-      if (!visible) return;
-      subset.forEach(function (offer) { grid.appendChild(renderAd(offer)); });
-      empty.hidden = subset.length !== 0;
-      section.querySelector(".cat-count").textContent = String(subset.length);
+    var rows = withPicksFirst(filterOffers(OFFERS, state), state);
+    var feed = document.getElementById("feed");
+    var empty = document.getElementById("feed-empty");
+    feed.replaceChildren();
+    rows.forEach(function (offer) {
+      feed.appendChild(renderAd(offer, OFFERS.indexOf(offer)));
     });
-    document.getElementById("count").textContent = rows.length + " of " + OFFERS.length + " offers shown.";
+    empty.hidden = rows.length !== 0;
+    document.getElementById("count").textContent = rows.length + " of " + OFFERS.length;
+  }
+
+  function withPicksFirst(rows, state) {
+    var landing = state.sort === "brand" && state.cat === "All" && state.status === "All" && !state.q.trim() && state.retailer === "All" && !state.storeOnly;
+    if (!landing) return rows;
+    var tops = [];
+    TOPS.forEach(function (top) {
+      var found = rows.find(top.test);
+      if (found) tops.push(found);
+    });
+    return tops.concat(rows.filter(function (offer) { return tops.indexOf(offer) === -1; }));
+  }
+
+  function showPanel(name) {
+    ["offers", "stores", "notes"].forEach(function (id) {
+      var panel = document.getElementById("panel-" + id);
+      var button = document.querySelector("[data-panel='" + id + "']");
+      var on = id === name;
+      if (panel) panel.hidden = !on;
+      if (button) button.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
 
   function fillStats() {
-    function count(pred) {
-      return OFFERS.filter(pred).length;
-    }
-    document.getElementById("stat-total").textContent = String(OFFERS.length);
-    document.getElementById("stat-electronics").textContent = String(count(function (o) { return o.cat === "Electronics"; }));
-    document.getElementById("stat-fashion").textContent = String(count(function (o) { return o.cat === "Fashion"; }));
-    document.getElementById("stat-live").textContent = String(count(function (o) { return o.status === "Live"; }));
+    ["stat-total", "stat-electronics", "stat-fashion", "stat-live"].forEach(function (id) {
+      if (!document.getElementById(id)) return;
+    });
   }
 
   function fillRetailers() {
@@ -217,17 +253,8 @@
       document.getElementById("store-only").checked = false;
       render();
     });
-    document.querySelectorAll("[data-jump-cat]").forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        var cat = link.getAttribute("data-jump-cat");
-        setPressed("cat", cat);
-        render();
-        var section = document.getElementById(cat.toLowerCase());
-        if (section && !section.hidden) {
-          event.preventDefault();
-          section.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
+    document.querySelectorAll("[data-panel]").forEach(function (button) {
+      button.addEventListener("click", function () { showPanel(button.getAttribute("data-panel")); });
     });
     var loading = document.getElementById("loading");
     if (loading) loading.remove();
