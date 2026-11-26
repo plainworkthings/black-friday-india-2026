@@ -315,7 +315,8 @@ input[type="search"], select {
   color: #fff;
   text-decoration: none;
 }
-.ad-shot img { width: 100%; height: 100%; object-fit: cover; }
+.ad-shot { background: #111; }
+.ad-shot img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .ad-shot::after {
   content: "";
   position: absolute;

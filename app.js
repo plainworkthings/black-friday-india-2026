@@ -55,16 +55,29 @@
     return span;
   }
 
+  var SOURCE_ART = {
+    AD: "images/src/AD.jpg", AJ: "images/src/AJ.jpg", AZ: "images/src/AZ.jpg", BM: "images/src/BM.jpg",
+    CW: "images/src/CW.jpg", DG: "images/src/DG.jpg", DJ: "images/src/DJ.jpg", FB: "images/src/FB.jpg",
+    FE: "images/src/FE.jpg", GR: "images/src/GR.jpg", GZ: "images/src/GZ.jpg", H7: "images/src/H7.jpg",
+    HB: "images/src/HB.jpg", HM: "images/src/HM.jpg", HZ: "images/src/HZ.jpg", IT: "images/src/IT.jpg",
+    LN: "images/src/LN.jpg", LS: "images/src/LS.jpg", LV: "images/src/LV.jpg", MC: "images/src/MC.jpg",
+    MS: "images/src/MS.jpg", MX: "images/src/MX.jpg", NK: "images/src/NK.jpg", OP: "images/src/OP.jpg",
+    PC: "images/src/PC.jpg", PM: "images/src/PM.jpg", PN: "images/src/PN.jpg", PT: "images/src/PT.jpg",
+    PU: "images/src/PU.jpg", SE: "images/src/SE.jpg", SM: "images/src/SM.jpg", SS: "images/src/SS.jpg",
+    TN: "images/src/TN.jpg", TR: "images/src/TR.jpg", UQ: "images/src/UQ.jpg", VS: "images/src/VS.jpg",
+    WS: "images/src/WS.jpg", ZC: "images/src/ZC.jpg", ZF: "images/src/ZF.jpg", ZU: "images/src/ZU.jpg"
+  };
+
   function artFor(offer) {
-    var text = (offer.brand + " " + offer.offer + " " + offer.retailer).toLowerCase();
-    if (/mall|phoenix|orion|ub city|bhartiya/.test(text)) return "images/mall.jpg";
-    if (/nykaa/.test(text)) return "images/beauty.jpg";
-    if (/tv|qled|oled|bravia|qned/.test(text)) return "images/tv.jpg";
-    if (/headphone|rockerz|marshall|wh-|ult wear|boat/.test(text)) return "images/audio.jpg";
-    if (/macbook|laptop|victus|loq|vivobook|omnibook|ideapad|thinkpad|legion|yoga|dell |asus |hp /.test(text)) return "images/laptop.jpg";
-    if (/iphone|galaxy|pixel|oneplus|xiaomi|redmi|nothing|phone|tab /.test(text)) return "images/phone.jpg";
-    if (/nike|puma|adidas|skechers|birkenstock|footwear|sneaker|campus/.test(text)) return "images/sneakers.jpg";
-    if (offer.cat === "Electronics") return "images/phone.jpg";
+    if (offer.brand.indexOf("boAt Rockerz 430") === 0) return "images/src/RDB.jpg";
+    if (offer.brand.indexOf("Sony WH") === 0) return "images/src/RDS.jpg";
+    if (offer.brand.indexOf("Marshall") === 0) return "images/src/RDM.jpg";
+    if (offer.brand.indexOf("boAt Rockerz 650 Pro") === 0) return "images/src/CRB.jpg";
+    if (offer.brand.indexOf("Xiaomi 4 Lite") === 0) return "images/src/CRA.jpg";
+    if (offer.brand.indexOf("Google Pixel") === 0) return "images/src/VSTV.jpg";
+    for (var i = 0; i < offer.src.length; i++) {
+      if (SOURCE_ART[offer.src[i]]) return SOURCE_ART[offer.src[i]];
+    }
     return "images/fashion.jpg";
   }
 
@@ -90,8 +103,7 @@
     var shot = el("div", "ad-shot");
     var img = document.createElement("img");
     img.src = artFor(offer);
-    img.alt = "";
-    img.style.objectPosition = ["center 20%", "center 50%", "center 80%"][index % 3];
+    img.alt = offer.brand;
     shot.appendChild(img);
     var flags = el("span", "ad-flags");
     flags.appendChild(el("span", "pill pill-" + offer.status.toLowerCase(), offer.status));
