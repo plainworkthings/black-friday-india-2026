@@ -30,16 +30,18 @@
 <body>
   <a class="skip" href="#offers">Skip to offers</a>
   <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="#top">Black Friday</a>
-      <p class="updated"><time datetime="2026-11-25">Last updated: 25 Nov 2026</time></p>
+    <div class="chrome">
+      <div class="header-inner">
+        <a class="brand" href="#top">Black Friday</a>
+        <p class="updated"><time datetime="2026-11-25">Last updated: 25 Nov 2026</time></p>
+      </div>
+      <nav class="tabs" aria-label="Sections">
+        <button type="button" data-panel="offers" aria-pressed="true">Offers</button>
+        <button type="button" data-panel="stores" aria-pressed="false">Stores</button>
+        <button type="button" data-panel="notes" aria-pressed="false">Notes</button>
+      </nav>
     </div>
   </header>
-  <nav class="tabs" aria-label="Sections">
-    <button type="button" data-panel="offers" aria-pressed="true">Offers</button>
-    <button type="button" data-panel="stores" aria-pressed="false">Stores</button>
-    <button type="button" data-panel="notes" aria-pressed="false">Notes</button>
-  </nav>
   <main id="top">
     <section id="panel-offers" class="panel">
       <div class="feed-col">
@@ -81,10 +83,14 @@
               <button type="button" class="text-btn" id="clear-filters">Clear</button>
             </div>
           </details>
-          <p class="count" id="count" aria-live="polite">67 of 67</p>
         </form>
         <p class="loading" id="loading">Loading offers…</p>
-        <div id="feed" class="ad-grid"></div>
+        <div class="carousel">
+          <button type="button" class="car-btn car-prev" id="car-prev" aria-label="Previous offer">‹</button>
+          <div id="feed" class="ad-grid carousel-track" tabindex="0" aria-roledescription="carousel"></div>
+          <button type="button" class="car-btn car-next" id="car-next" aria-label="Next offer">›</button>
+          <p class="count" id="count" aria-live="polite">1 / 67</p>
+        </div>
         <p class="empty" id="feed-empty" hidden>No offers match these filters.</p>
       </div>
     </section>
