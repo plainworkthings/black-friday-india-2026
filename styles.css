@@ -492,32 +492,37 @@ td.brand { font-weight: 800; }
   html { scroll-behavior: auto; }
 }
 
+.chrome, .feed-col, #panel-stores .wrap, #panel-notes .wrap {
+  width: min(480px, calc(100% - 1rem));
+  margin-inline: auto;
+}
+.site-header { height: auto; padding: 0.35rem 0 0.45rem; }
 .tabs {
-  position: sticky;
-  top: 3.15rem;
-  z-index: 25;
+  position: static;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.35rem;
-  width: min(440px, calc(100% - 1.25rem));
-  margin: 0.55rem auto 0;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 999px;
-  padding: 0.25rem;
+  gap: 4px;
+  width: 100%;
+  margin: 0.35rem 0 0;
+  background: #1a1a1a;
+  border: 1px solid #2c2c2c;
+  border-radius: 14px;
+  padding: 4px;
 }
 .tabs button {
   border: 0;
   background: transparent;
-  color: #eee;
+  color: #ddd;
   font: inherit;
   font-weight: 800;
-  border-radius: 999px;
-  padding: 0.45rem 0.4rem;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  min-height: 44px;
+  padding: 0.4rem 0.2rem;
   cursor: pointer;
 }
 .tabs button[aria-pressed="true"] { background: var(--accent); color: #fff; }
-.feed-col { width: min(440px, calc(100% - 1rem)); margin: 0 auto; padding-bottom: 2rem; }
+.feed-col { padding-bottom: 1.25rem; }
 .photo-note { color: var(--muted); font-size: 0.82rem; margin: 0.35rem 0 0.6rem; }
 .stories {
   display: flex;
@@ -555,7 +560,9 @@ td.brand { font-weight: 800; }
   font-weight: 700;
   line-height: 1.25;
 }
-.chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.45rem; }
+.chip-row { display: flex; flex-wrap: nowrap; gap: 0.35rem; margin-top: 0.15rem; overflow-x: auto; scrollbar-width: none; }
+.chip-row[data-filter="cat"] { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+.chip-row[data-filter="cat"] button { width: 100%; text-align: center; min-height: 40px; }
 .chip-row button {
   border: 0;
   background: #1c1c1c;
@@ -570,8 +577,55 @@ td.brand { font-weight: 800; }
 .chip-row button[aria-pressed="true"] { background: #fff; color: #111; }
 .more-filters { margin-top: 0.55rem; color: var(--muted); }
 .more-filters summary { cursor: pointer; font-weight: 800; color: #ffd0e2; }
-.filters { position: static; }
-.ad-grid { grid-template-columns: 1fr; }
+.filters { position: static; border: 0; background: transparent; padding: 0.45rem 0 0.2rem; backdrop-filter: none; }
+.carousel { position: relative; }
+.carousel-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track > .ad {
+  flex: 0 0 100%;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.car-btn {
+  position: absolute;
+  top: 28%;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(12, 12, 12, 0.72);
+  color: #fff;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.car-prev { left: 8px; }
+.car-next { right: 8px; }
+.count {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(12, 12, 12, 0.62);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
 .ad-shot { aspect-ratio: auto; height: 38vh; max-height: 280px; }
 .ad-offer {
   color: #f6f1ea;
@@ -583,38 +637,7 @@ td.brand { font-weight: 800; }
   overflow: hidden;
 }
 @media (max-width: 760px) {
-  body:has(#panel-offers:not([hidden])) {
-    overflow: hidden;
-    height: 100dvh;
-  }
   body:has(#panel-offers:not([hidden])) .site-footer { display: none; }
-  #panel-offers {
-    height: calc(100dvh - 6.5rem);
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-  #panel-offers .feed-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    padding-bottom: 0;
-  }
-  #feed {
-    display: block;
-    flex: 1;
-    height: auto;
-    min-height: 0;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-  }
-  .ad {
-    min-height: 100%;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    margin: 0;
-  }
 }
 .ad.is-open .ad-offer { display: block; -webkit-line-clamp: unset; }
 .ad-retailer { position: static; font-family: var(--sans); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; }

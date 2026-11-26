@@ -161,7 +161,32 @@
       feed.appendChild(renderAd(offer, OFFERS.indexOf(offer)));
     });
     empty.hidden = rows.length !== 0;
-    document.getElementById("count").textContent = rows.length + " of " + OFFERS.length;
+    feed.scrollLeft = 0;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    var feed = document.getElementById("feed");
+    var count = document.getElementById("count");
+    var cards = feed.querySelectorAll(".ad");
+    if (!cards.length) {
+      count.textContent = "0 / 0";
+      return;
+    }
+    var origin = feed.getBoundingClientRect().left;
+    var index = 0;
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].getBoundingClientRect().left - origin < feed.clientWidth * 0.5) index = i;
+    }
+    count.textContent = (index + 1) + " / " + cards.length;
+  }
+
+  function stepCarousel(direction) {
+    var feed = document.getElementById("feed");
+    var card = feed.querySelector(".ad");
+    if (!card) return;
+    var gap = 12;
+    feed.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
   }
 
   function withPicksFirst(rows, state) {
@@ -255,6 +280,14 @@
     });
     document.querySelectorAll("[data-panel]").forEach(function (button) {
       button.addEventListener("click", function () { showPanel(button.getAttribute("data-panel")); });
+    });
+    var feed = document.getElementById("feed");
+    feed.addEventListener("scroll", function () { window.requestAnimationFrame(updateCarousel); }, { passive: true });
+    document.getElementById("car-prev").addEventListener("click", function () { stepCarousel(-1); });
+    document.getElementById("car-next").addEventListener("click", function () { stepCarousel(1); });
+    feed.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") { event.preventDefault(); stepCarousel(1); }
+      if (event.key === "ArrowLeft") { event.preventDefault(); stepCarousel(-1); }
     });
     var loading = document.getElementById("loading");
     if (loading) loading.remove();
